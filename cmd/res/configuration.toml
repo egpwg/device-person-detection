@@ -1,0 +1,74 @@
+[Writable]
+LogLevel = 'INFO'
+
+[Service]
+BootTimeout = 30000
+CheckInterval = '10s'
+Host = '192.168.8.146'  # set this to the IP address of the system host
+ServerBindAddr = ''  # blank value defaults to Service.Host value
+Port = 49997  #modified to be different than existing device services
+Protocol = 'http'
+StartupMsg = 'Person-Detection device started'
+Timeout = 20000
+ConnectRetries = 20
+Labels = []
+EnableAsyncReadings = true
+AsyncBufferSize = 16
+
+[Registry]
+Host = '192.168.8.135'
+Port = 8500
+Type = 'consul'
+
+[Clients]
+  [Clients.Data]
+  Protocol = 'http'
+  Host = '192.168.8.135'
+  Port = 48080
+
+  [Clients.Metadata]
+  Protocol = 'http'
+  Host = '192.168.8.135'
+  Port = 48081
+
+  [Clients.Logging]
+  Protocol = 'http'
+  Host = '192.168.8.135'
+  Port = 48061
+
+
+[Device]
+  DataTransform = true
+  InitCmd = ''
+  InitCmdArgs = ''
+  MaxCmdOps = 128
+  MaxCmdValueLen = 256
+  RemoveCmd = ''
+  RemoveCmdArgs = ''
+  ProfilesDir = './res'
+  UpdateLastConnected = false
+  [Device.Discovery]
+    Enabled = false
+    Interval = '30s'
+
+# Remote and file logging disabled so only stdout logging is used
+[Logging]
+EnableRemote = false
+File = ''
+
+# Pre-define Devices
+[[DeviceList]]
+  Name = 'Person-Detection-Device01'
+  Profile = 'Person-Detection-Device'
+  Description = 'Person Detection on RPi4B with OpenVINO'
+  [DeviceList.Protocols]
+    [DeviceList.Protocols.Other]
+      Address = 'random'
+      Port = '300'
+  [[DeviceList.AutoEvents]]
+    Resource = 'Alert'
+    OnChange = false
+    Frequency = '1s'
+
+
+# title = "inside server config"
