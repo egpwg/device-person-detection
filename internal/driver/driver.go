@@ -66,8 +66,11 @@ func (s *Driver) HandleReadCommands(deviceName string,
 					s.lc.Error(err.Error())
 					return res, err
 				}
-				tt := t.UnixNano()
-				timeList = append(timeList, tt)
+				s := t.UnixMilli() //- int64(28800000)
+				timeList = append(timeList, s)
+			}
+			if len(timeList) == 0 {
+				timeList = append(timeList, 0)
 			}
 			cv, err := dsModels.NewInt64ArrayValue(req.DeviceResourceName, 0, timeList)
 			if err != nil {

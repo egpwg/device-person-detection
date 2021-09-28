@@ -14,3 +14,9 @@ deviceResources:
         { type: "int64array", readWrite: "R"}
       units:
         { type: "String", readWrite: "R", defaultValue: "[]int64"}
+
+deviceCommands:
+  -
+    name: "PDAlert"
+    get:
+      - { operation: "get", deviceResource: "Alert"}
