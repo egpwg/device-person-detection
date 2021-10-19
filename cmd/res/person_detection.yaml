@@ -1,0 +1,22 @@
+name: "Person-Detection-Device"
+manufacture: "GW"
+model: "person-detection-v0.1"
+labels: 
+  - "pd"
+description: "person detection"
+
+deviceResources:
+  -
+    name: "Alert"
+    description: "person detection alert"
+    properties:
+      value:
+        { type: "int64array", readWrite: "R"}
+      units:
+        { type: "String", readWrite: "R", defaultValue: "[]int64"}
+
+deviceCommands:
+  -
+    name: "PDAlert"
+    get:
+      - { operation: "get", deviceResource: "Alert"}
